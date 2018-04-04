@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: chams
- * Date: 27/01/18
- * Time: 15:46
- */
 
 namespace App\Traits\API\Exceptions;
-
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,6 +11,7 @@ trait RestExceptionHandlerTrait
     use RestAuthenticationExceptionTrait;
     use RestBadRequestExceptionTrait;
     use RestModelNotFoundExceptionTrait;
+    use RestNotFoundExceptionTrait;
     use RestValidationExceptionTrait;
 
     /**
@@ -32,6 +26,8 @@ trait RestExceptionHandlerTrait
                 return $this->authenticationException();
             case $this->isModelNotFoundException($exception):
                 return $this->modelNotFoundException();
+            case $this->isNotFoundException($exception):
+                return $this->notFoundException();
             case $this->isValidationException($exception):
                 return $this->validationException($data = $exception->errors());
             default:

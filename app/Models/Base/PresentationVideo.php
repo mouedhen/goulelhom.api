@@ -12,4 +12,8 @@ class PresentationVideo extends Model
     protected $table = 'presentation_videos';
     protected $fillable = ['title', 'url', 'is_selected'];
     protected static $logFillable = true;
+
+    public function currentVideo () {
+        return $this->where('is_selected', '=', true)->last();
+    }
 }

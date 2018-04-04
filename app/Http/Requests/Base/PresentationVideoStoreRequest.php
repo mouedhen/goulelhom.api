@@ -1,10 +1,17 @@
 <?php
+/**
+ * Created by IntelliJ IDEA.
+ * User: mouedhen
+ * Date: 04/04/18
+ * Time: 02:03
+ */
 
-namespace App\Http\Requests\Auth;
+namespace App\Http\Requests\Base;
+
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class PresentationVideoStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +32,8 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|min:4|max:255',
-            'email' => 'required|min:4|max:255|email',
-            'password' => 'nullable|min:4|max:255|confirmed',
-            'password_confirmation' => 'nullable'
+            'url' => 'required|min:4|max:255|url',
+            'is_selected' => 'required|boolean',
         ];
     }
 }

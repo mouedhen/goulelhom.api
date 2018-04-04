@@ -84,6 +84,19 @@ Route::group(['prefix' => env('API_VERSION'), 'namespace' => 'API'], function ()
 
     });
 
+    Route::group([
+        'namespace' => 'Base',
+        'prefix' => 'content',
+    ], function () {
+
+        Route::apiResources([
+            'presentation-video' => 'PresentationVideoController',
+        ], [
+            'except' => ['create', 'edit',]
+        ]);
+
+    });
+
 });
 
 
