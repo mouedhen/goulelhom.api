@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API\Base;
 
+use App\Http\Resources\Base\SliderResource;
+use App\Models\Base\Slider;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,11 +13,13 @@ class SliderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
-        //
+        return SliderResource::collection(
+            Slider::paginate()
+        );
     }
 
     /**
@@ -25,7 +30,19 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $record = Slider::create([
+            'author' => $request->get('author'),
+            'quote' => $request->get('quote'),
+            'is_selected' => $request->get('is_selected'),
+        ]);
+
+        $data = [
+            'message' => 'record created successfully',
+            'code' => JsonResponse::HTTP_CREATED,
+            'data' => new SliderResource($record),
+        ];
+
+        return response()->json($data, JsonResponse::HTTP_CREATED);
     }
 
     /**

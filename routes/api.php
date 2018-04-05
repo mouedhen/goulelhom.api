@@ -95,6 +95,15 @@ Route::group(['prefix' => env('API_VERSION'), 'namespace' => 'API'], function ()
             'except' => ['create', 'edit',]
         ]);
 
+        Route::apiResources([
+            'sliders' => 'SliderController',
+        ], [
+            'except' => ['create', 'edit',]
+        ]);
+
+        Route::post('sliders/{id}/img', 'SliderImgController@store')
+            ->where('id', '[0-9]+');
+
     });
 
 });

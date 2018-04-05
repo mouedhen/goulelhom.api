@@ -6,9 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\Traits\HasActivity;
+use Spatie\MediaLibrary\File;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
-use Spatie\MediaLibrary\Media;
+use Spatie\MediaLibrary\Models\Media;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable implements HasMedia
@@ -16,8 +17,9 @@ class User extends Authenticatable implements HasMedia
     use Notifiable;
     use HasApiTokens;
     use HasActivity;
-    use HasMediaTrait;
     use EntrustUserTrait;
+
+    use HasMediaTrait;
 
     protected static $logFillable = true;
 
@@ -40,23 +42,26 @@ class User extends Authenticatable implements HasMedia
     ];
 
     public function avatar() {
-        return $this->getFirstMediaUrl('avatar');
+        return $this->getMedia('avatar')->last();
     }
 
     public function thumb() {
-        return $this->getFirstMediaUrl('thumb');
+        return $this->getMedia('thumb')->last();
     }
 
     public function registerMediaCollections()
     {
         $this
             ->addMediaCollection('avatar')
+            ->acceptsFile(function (File $file) {
+                return $file->mimeType === 'image/jpeg' || $file->mimeType === 'image/png';
+            })
+            ->singleFile()
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
-                    ->width(200)
-                    ->height(200);
-            })
-            ->singleFile();
+                    ->width(400)
+                    ->height(300);
+            });
     }
 }
