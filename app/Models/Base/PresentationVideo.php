@@ -10,7 +10,7 @@ class PresentationVideo extends Model
     use LogsActivity;
 
     protected $table = 'presentation_videos';
-    protected $fillable = ['title', 'url', 'is_selected'];
+    protected $fillable = ['name', 'url', 'is_selected'];
     protected static $logFillable = true;
 
     public function currentVideo () {

@@ -27,7 +27,7 @@ class PresentationVideoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param PresentationVideoStoreRequest $request
-     * @return PresentationVideo
+     * @return PresentationVideoResource
      */
     public function store(PresentationVideoStoreRequest $request)
     {
@@ -37,7 +37,11 @@ class PresentationVideoController extends Controller
 
         $params = $request->only(['name', 'url', 'is_selected']);
 
-        return new PresentationVideo(
+        if (PresentationVideo::all()->count() < 1) {
+            $params['is_selected'] = true;
+        }
+
+        return new PresentationVideoResource(
             PresentationVideo::create($params)
         );
     }
@@ -82,8 +86,20 @@ class PresentationVideoController extends Controller
      */
     public function destroy($id)
     {
-        PresentationVideo::findOrFail($id)
-            ->delete();
+        if (PresentationVideo::all()->count() <= 1) {
+            $data = [
+                'message' => 'we can\'t delete the last video',
+                'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+            ];
+            return response()->json($data, JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $record = PresentationVideo::findOrFail($id);
+
+        if ($record->is_selected) {
+            PresentationVideo::all()->last()->update(['is_selected' => true]);
+        }
+
+        $record->delete();
 
         $data = [
             'message' => 'record deleted successfully',
