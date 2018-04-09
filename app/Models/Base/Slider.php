@@ -2,6 +2,7 @@
 
 namespace App\Models\Base;
 
+use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\File;
@@ -13,9 +14,14 @@ class Slider extends Model implements HasMedia
 {
     use LogsActivity;
     use HasMediaTrait;
+    use Translatable;
 
     protected $table = 'sliders';
+
     protected $fillable = ['quote', 'author', 'is_selected'];
+    protected $translatedAttributes = ['quote', 'author'];
+    protected $translationModel = SliderTranslation::class;
+
     protected static $logFillable = true;
 
     public function slide()

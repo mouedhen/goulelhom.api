@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\LocaleMiddleware;
+use Barryvdh\Cors\HandleCors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -40,7 +42,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            \Barryvdh\Cors\HandleCors::class,
+            'cors',
+            'locale'
         ],
     ];
 
@@ -65,5 +68,8 @@ class Kernel extends HttpKernel
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+
+        'cors' => HandleCors::class,
+        'locale' => LocaleMiddleware::class,
     ];
 }

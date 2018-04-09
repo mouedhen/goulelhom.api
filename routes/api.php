@@ -2,7 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => env('API_VERSION'), 'namespace' => 'API'], function () {
+Route::group([
+    'prefix' => config('api.version'),
+    'namespace' => 'API'
+], function () {
+
+    Route::get('test', function () {
+        return response()->json([
+            'hello',
+            config('api')
+        ]);
+    });
 
     /*
      * Authentication package routes

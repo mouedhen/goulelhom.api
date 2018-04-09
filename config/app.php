@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -156,6 +156,8 @@ return [
         YbrNX\MariaDB\MariaDBServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Spatie\Analytics\AnalyticsServiceProvider::class,
+        Dimsav\Translatable\TranslatableServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

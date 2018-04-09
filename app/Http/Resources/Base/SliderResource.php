@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Base;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\App;
 
 class SliderResource extends Resource
 {
@@ -10,12 +11,13 @@ class SliderResource extends Resource
     {
         return [
             'id' => $this->id,
-            'quote' => $this->quote,
-            'author' => $this->author,
+            'quote' => $this->translate(App::getLocale(), true)->quote,
+            'author' => $this->translate(App::getLocale(), true)->author,
             'is_selected' => ($this->is_selected > 0 ? true : false),
-            'media' => $this->media,
+            // 'media' => $this->media,
             'slide' => ($this->slide() ? env('APP_URL') . $this->slide() : ''),
-            'thumb' => $this->thumb(),
+            // 'thumb' => $this->thumb(),
+            // 'translations' => $this->translations,
         ];
     }
 }
