@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Events\UserConnectionEvent;
 use App\Http\Requests\Auth\LoginAttemptRequest;
 use App\Http\Resources\Auth\UserResource;
 use Illuminate\Http\JsonResponse;
@@ -31,6 +32,10 @@ class AccessController extends Controller
                 array_push($scope, $role['name']);
             }
             $user['token'] = $user->createToken('goulelhom-app', $scope)->accessToken;
+
+            $event = new UserConnectionEvent(['name' => $user['name'], 'email' => $user['email']]);
+            broadcast($event)->toOthers();
+
             return response()->json(['data' => $user], JsonResponse::HTTP_OK);
         }
 
