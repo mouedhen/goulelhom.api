@@ -35,39 +35,15 @@ class SliderController extends Controller
         $record = new Slider();
 
         $record->fill([
-            'en' => [
-                'author' => 'english translation',
-                'quote' => 'english translation',
-            ]
-        ]);
-
-        $record->fill([
-            'fr' => [
+            App::getLocale() => [
                 'author' => $request->get('author'),
                 'quote' => $request->get('quote'),
             ]
         ]);
 
-        $record->fill([
-            'ar' => [
-                'author' => $request->get('author'),
-                'quote' => $request->get('quote'),
-            ]
-        ]);
-
-        // $record->author = $request->get('author');
-        // $record->quote = $request->get('quote');
         $record->is_selected = $request->get('is_selected');
 
         $record->save();
-
-        /*
-        $record = Slider::create([
-            'author' => $request->get('author'),
-            'quote' => $request->get('quote'),
-            'is_selected' => $request->get('is_selected'),
-        ]);
-        */
 
         $data = [
             'message' => 'record created successfully',
@@ -102,9 +78,25 @@ class SliderController extends Controller
     public function update(Request $request, $id)
     {
         $record = Slider::findOrFail($id);
-        $params = $request->only(['author', 'quote', 'is_selected']);
-        $record->update($params);
-        return new SliderResource($record);
+
+        $record->fill([
+            App::getLocale() => [
+                'author' => $request->get('author'),
+                'quote' => $request->get('quote'),
+            ]
+        ]);
+
+        $record->is_selected = $request->get('is_selected');
+
+        $record->save();
+
+        $data = [
+            'message' => 'record updated successfully',
+            'code' => JsonResponse::HTTP_OK,
+            'data' => new SliderResource($record),
+        ];
+
+        return response()->json($data, JsonResponse::HTTP_OK);
     }
 
     /**
