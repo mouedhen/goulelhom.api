@@ -9,10 +9,18 @@ class SliderResource extends Resource
 {
     public function toArray($request)
     {
+        try {
+            $quote = $this->translate(App::getLocale(), true)->quote;
+            $author = $this->translate(App::getLocale(), true)->author;
+        } catch (\Exception $exception) {
+            $quote = $this->quote;
+            $author = $this->author;
+            logger()->warning('[' . date('L') . '][WARNING]' . $exception->getMessage());
+        }
         return [
             'id' => $this->id,
-            'quote' => $this->translate(App::getLocale(), true)->quote,
-            'author' => $this->translate(App::getLocale(), true)->author,
+            'quote' => $quote,
+            'author' => $author,
             'lang' => App::getLocale(),
             'is_selected' => ($this->is_selected > 0 ? true : false),
             'slide' => ($this->slide() ? env('APP_URL') . $this->slide() : ''),
