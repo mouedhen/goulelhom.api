@@ -60,13 +60,6 @@ Route::group([
             ], [
                 'except' => ['create', 'store', 'edit', 'update', 'destroy']
             ]);
-
-            // Route::apiResources([
-            //     'activities' => 'UserAvatarController',
-            // ], [
-            //     'except' => ['index', 'create', 'show', 'edit', 'update']
-            // ]);
-
         });
     });
 
@@ -99,21 +92,54 @@ Route::group([
         'prefix' => 'content',
     ], function () {
 
-        Route::apiResources([
-            'presentation-video' => 'PresentationVideoController',
-        ], [
-            'except' => ['create', 'edit',]
-        ]);
+        Route::group([
+            'middleware' => 'auth:api',
+        ], function () {
 
-        Route::apiResources([
-            'sliders' => 'SliderController',
-        ], [
-            'except' => ['create', 'edit',]
-        ]);
+            Route::apiResources([
+                'presentation-video' => 'PresentationVideoController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
 
-        Route::post('sliders/{id}/img', 'SliderImgController@store')
-            ->where('id', '[0-9]+');
+            Route::apiResources([
+                'sliders' => 'SliderController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
 
+            Route::post('sliders/{id}/img', 'SliderImgController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('sliders/{sliderID}/doc/{mediaID}', 'SliderImgController@destroy')
+                ->where('reportID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+        });
+
+    });
+
+    Route::group([
+        'namespace' => 'Metrics',
+        'prefix' => 'metrics',
+    ], function () {
+        Route::group([
+            'middleware' => 'auth:api',
+        ], function () {
+
+            Route::apiResources([
+                'reports' => 'ReportController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+            Route::post('reports/{id}/img', 'ReportDocController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('reports/{reportID}/doc/{mediaID}', 'ReportDocController@destroy')
+                ->where('reportID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+
+        });
     });
 
 });

@@ -4,6 +4,7 @@ namespace App\Models\Base;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\File;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -15,6 +16,7 @@ class Slider extends Model implements HasMedia
     use LogsActivity;
     use HasMediaTrait;
     use Translatable;
+    use Notifiable;
 
     protected $table = 'sliders';
 
@@ -31,7 +33,7 @@ class Slider extends Model implements HasMedia
 
     public function thumb()
     {
-        return $this->getFirstMediaUrl('thumb');
+        return $this->getFirstMediaUrl('sliders', 'thumb');
     }
 
     public function registerMediaCollections()

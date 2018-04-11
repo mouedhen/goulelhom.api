@@ -13,11 +13,15 @@ class SliderResource extends Resource
             'id' => $this->id,
             'quote' => $this->translate(App::getLocale(), true)->quote,
             'author' => $this->translate(App::getLocale(), true)->author,
+            'lang' => App::getLocale(),
             'is_selected' => ($this->is_selected > 0 ? true : false),
-            // 'media' => $this->media,
             'slide' => ($this->slide() ? env('APP_URL') . $this->slide() : ''),
-            // 'thumb' => $this->thumb(),
-            // 'translations' => $this->translations,
+            'thumb' => ($this->thumb() ? env('APP_URL') . $this->thumb() : ''),
+            'translations' => [
+                'en' => $this->hasTranslation('en'),
+                'fr' => $this->hasTranslation('fr'),
+                'ar' => $this->hasTranslation('ar'),
+            ],
         ];
     }
 }

@@ -3,11 +3,13 @@
 namespace App\Models\Base;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class PresentationVideo extends Model
 {
     use LogsActivity;
+    use Notifiable;
 
     protected $table = 'presentation_videos';
     protected $fillable = ['name', 'url', 'is_selected'];

@@ -19,8 +19,11 @@ class LocaleMiddleware
     {
         if ($request->query('lang')) {
             App::setLocale($request->query('lang'));
+            return $next($request);
         }
-
+        if ($request->get('lang')) {
+            App::setLocale($request->get('lang'));
+        }
         return $next($request);
     }
 }
