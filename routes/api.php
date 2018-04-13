@@ -142,6 +142,30 @@ Route::group([
         });
     });
 
+    Route::group([
+        'namespace' => 'Posts',
+        'prefix' => 'posts',
+    ], function () {
+        Route::group([
+            'middleware' => 'auth:api',
+        ], function () {
+
+            Route::apiResources([
+                'reports' => 'EventController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+            Route::post('reports/{id}/media', 'EventMediaController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('reports/{reportID}/media/{mediaID}', 'EventMediaController@destroy')
+                ->where('reportID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+
+        });
+    });
+
 });
 
 

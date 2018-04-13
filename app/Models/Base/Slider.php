@@ -47,8 +47,8 @@ class Slider extends Model implements HasMedia
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
-                    ->width(400)
-                    ->height(300);
+                    ->width(800)
+                    ->height(600);
             });
     }
 }

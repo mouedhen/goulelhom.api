@@ -4,6 +4,7 @@ namespace App\Models\Metrics;
 
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\File;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -25,6 +26,7 @@ class Report extends Model implements HasMedia
     use LogsActivity;
     use HasMediaTrait;
     use Translatable;
+    use Notifiable;
 
     protected $table = 'reports';
 
