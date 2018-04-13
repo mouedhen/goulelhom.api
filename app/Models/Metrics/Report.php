@@ -56,8 +56,8 @@ class Report extends Model implements HasMedia
             ->registerMediaConversions(function (Media $media) {
                 $this
                     ->addMediaConversion('thumb')
-                    ->width(300)
-                    ->height(400);
+                    ->width(600)
+                    ->height(800);
             });
     }
 }

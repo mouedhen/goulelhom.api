@@ -14,15 +14,22 @@ use App\Http\Resources\Metrics\ReportResource;
 use App\Models\Metrics\Report;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Spatie\MediaLibrary\FileManipulator;
+use Spatie\MediaLibrary\Models\Media;
 
 class ReportDocController extends Controller
 {
+
     public function store(Request $request, $id)
     {
+        // @TODO Generate the thumb on upload
         $record = Report::findOrFail($id);
+
         $record
             ->addMedia($request->file)
-            ->toMediaCollection('sliders');
+            ->toMediaCollection('documents');
+
         $data = [
             'message' => 'file uploaded successfully',
             'code' => JsonResponse::HTTP_ACCEPTED,

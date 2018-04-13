@@ -50,26 +50,27 @@ sudo apt-get install mariadb-server
     * install spatie/laravel-medialibrary dependencies
 
 ```bash
-$ sudo apt-get install libgd-dev imagemagick ghostscript ffmpeg # to generate thumb
-$ sudo apt-get install jpegoptim
-$ sudo apt-get install optipng
-$ sudo apt-get install pngquant
-$ sudo npm install -g svgo
-$ sudo apt-get install gifsicle
+sudo apt-get install libav-tools libgd-dev imagemagick ghostscript ffmpeg # to generate thumb
+sudo apt-get install jpegoptim
+sudo apt-get install optipng
+sudo apt-get install pngquant
+sudo npm install -g svgo
+sudo apt-get install gifsicle
+sudo apt-get install php-imagick
 ```
 
 ### Install the application
 
 ```bash
-$ git clone #
-$ composer install
-$ npm install
-$ cp .env.example .env # you should adapt the .env file to your system config
-$ php artisan key:generate # generate laravel key
-$ php artisan passport:install # generate passport package keys
-$ php artisan migrate # migrate the database
-$ php artisan db:seed # create default application records
-$ php artisan storage:link # make the storage public to access uploaded files
+git clone #
+composer install
+npm install
+cp .env.example .env # you should adapt the .env file to your system config
+php artisan key:generate # generate laravel key
+php artisan passport:install # generate passport package keys
+php artisan migrate # migrate the database
+php artisan db:seed # create default application records
+php artisan storage:link # make the storage public to access uploaded files
 ```
 
 ### Add cron jobs
@@ -81,10 +82,10 @@ $ php artisan storage:link # make the storage public to access uploaded files
 ### Maintain the application
 
 ```bash
-$ php artisan cache:clear # clear cache facade value
-$ php artisan route:cache # clear route cache
-$ php artisan view:clear # clear view cache
-$ php artisan config:clear # clear config cache
+php artisan cache:clear # clear cache facade value
+php artisan route:cache # clear route cache
+php artisan view:clear # clear view cache
+php artisan config:clear # clear config cache
 ```
 
 ## Third party packages

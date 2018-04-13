@@ -132,7 +132,7 @@ Route::group([
                 'except' => ['create', 'edit',]
             ]);
 
-            Route::post('reports/{id}/img', 'ReportDocController@store')
+            Route::post('reports/{id}/doc', 'ReportDocController@store')
                 ->where('id', '[0-9]+');
 
             Route::delete('reports/{reportID}/doc/{mediaID}', 'ReportDocController@destroy')

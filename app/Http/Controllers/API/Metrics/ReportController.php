@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mouedhen
- * Date: 11/04/18
- * Time: 01:30
- */
 
 namespace App\Http\Controllers\API\Metrics;
 
@@ -12,6 +6,7 @@ namespace App\Http\Controllers\API\Metrics;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Metrics\ReportResource;
 use App\Models\Metrics\Report;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -21,7 +16,7 @@ class ReportController extends Controller
     public function index()
     {
         return ReportResource::collection(
-            Report::pagiante()
+            Report::orderBy('published_at', 'desc')->paginate()
         );
     }
 
@@ -36,9 +31,9 @@ class ReportController extends Controller
             ]
         ]);
 
-        $record->published_at = $request->get('published_at');
-        $record->period_start_at = $request->get('period_start_at');
-        $record->period_end_at = $request->get('period_end_at');
+        if ($request->get('published_at')) $record->published_at = new Carbon($request->get('published_at'));
+        if ($request->get('period_start_at')) $record->period_start_at = new Carbon($request->get('period_start_at'));
+        if ($request->get('period_end_at')) $record->period_end_at = new Carbon($request->get('period_end_at'));
 
         $record->save();
 
@@ -70,9 +65,9 @@ class ReportController extends Controller
             ]
         ]);
 
-        $record->published_at = $request->get('published_at');
-        $record->period_start_at = $request->get('period_start_at');
-        $record->period_end_at = $request->get('period_end_at');
+        if ($request->get('published_at')) $record->published_at = $request->get('published_at');
+        if ($request->get('period_start_at')) $record->period_start_at = $request->get('period_start_at');
+        if ($request->get('period_end_at')) $record->period_end_at = $request->get('period_end_at');
 
         $record->save();
 

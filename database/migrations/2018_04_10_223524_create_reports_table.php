@@ -18,7 +18,7 @@ class CreateReportsTable extends Migration
 
             $table->date('published_at');
             $table->date('period_start_at');
-            $table->date('end_start_at');
+            $table->date('period_end_at');
 
             $table->timestamps();
         });
