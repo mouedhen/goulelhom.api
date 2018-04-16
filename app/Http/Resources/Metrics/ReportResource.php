@@ -22,12 +22,12 @@ class ReportResource extends Resource
             'id' => $this->id,
             'title' => $title,
             'description' => $description,
-            'lang' => App::getLocale(),
             'published_at' => (string) $this->published_at,
             'period_start_at' => (string) $this->period_start_at,
             'period_end_at' => (string) $this->period_end_at,
             'document' => ($this->document() ? env('APP_URL') . $this->document() : ''),
             'thumb' => ($this->thumb() ? env('APP_URL') . $this->thumb() : ''),
+            'lang' => App::getLocale(),
             'translations' => [
                 'en' => $this->hasTranslation('en'),
                 'fr' => $this->hasTranslation('fr'),

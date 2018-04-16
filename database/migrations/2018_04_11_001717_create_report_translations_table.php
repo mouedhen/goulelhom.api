@@ -18,8 +18,8 @@ class CreateReportTranslationsTable extends Migration
             $table->integer('report_id')->unsigned();
             $table->string('locale')->index();
 
-            $table->text('title');
-            $table->string('description')->nullable();
+            $table->string('title');
+            $table->text('description')->nullable();
 
             $table->unique(['report_id', 'locale']);
             $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade');

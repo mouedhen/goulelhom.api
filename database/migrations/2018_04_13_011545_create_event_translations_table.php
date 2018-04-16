@@ -19,8 +19,8 @@ class CreateEventTranslationsTable extends Migration
             $table->integer('event_id')->unsigned();
             $table->string('locale')->index();
 
-            $table->text('title');
-            $table->string('description')->nullable();
+            $table->string('title');
+            $table->text('description')->nullable();
 
             $table->unique(['event_id', 'locale']);
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');

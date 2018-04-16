@@ -151,17 +151,34 @@ Route::group([
         ], function () {
 
             Route::apiResources([
-                'reports' => 'EventController',
+                'events' => 'EventController',
             ], [
                 'except' => ['create', 'edit',]
             ]);
 
-            Route::post('reports/{id}/media', 'EventMediaController@store')
+            Route::post('events/{id}/media', 'EventMediaController@store')
                 ->where('id', '[0-9]+');
 
-            Route::delete('reports/{reportID}/media/{mediaID}', 'EventMediaController@destroy')
-                ->where('reportID', '[0-9]+')
+            Route::delete('events/{eventID}/media/{mediaID}', 'EventMediaController@destroy')
+                ->where('eventID', '[0-9]+')
                 ->where('mediaID', '[0-9]+');
+
+        });
+    });
+
+    Route::group([
+        'namespace' => 'Contacts',
+        'prefix' => 'contacts',
+    ], function () {
+        Route::group([
+            'middleware' => 'auth:api',
+        ], function () {
+
+            Route::apiResources([
+                'contacts' => 'ContactController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
 
         });
     });

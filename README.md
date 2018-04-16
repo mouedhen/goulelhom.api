@@ -45,9 +45,9 @@ sudo apt-get install mariadb-server
 
 * Install application dependencies
 
-    * install redis (cache handler)
+* install redis (cache handler)
 
-    * install spatie/laravel-medialibrary dependencies
+* install spatie/laravel-medialibrary dependencies
 
 ```bash
 sudo apt-get install libav-tools libgd-dev imagemagick ghostscript ffmpeg # to generate thumb

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Events;
+namespace App\Http\Controllers\API\Posts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Posts\EventResource;
@@ -31,13 +31,13 @@ class EventMediaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int $mediaId
-     * @param int $reportID
+     * @param int $eventID
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($mediaId, $reportID, Request $request)
+    public function destroy($mediaId, $eventID, Request $request)
     {
-        $record = Event::findOrFail($reportID);
+        $record = Event::findOrFail($eventID);
         $record
             ->getMedia()
             ->keyBy('id')

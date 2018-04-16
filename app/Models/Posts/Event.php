@@ -6,10 +6,11 @@ use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
 
-class Event extends Model
+class Event extends Model implements HasMedia
 {
     use LogsActivity;
     use HasMediaTrait;
@@ -25,7 +26,7 @@ class Event extends Model
 
     protected static $logFillable = true;
 
-    public function media()
+    public function attachments()
     {
         return $this->getFirstMediaUrl('events');
     }
