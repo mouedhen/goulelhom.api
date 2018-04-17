@@ -139,6 +139,24 @@ Route::group([
                 ->where('reportID', '[0-9]+')
                 ->where('mediaID', '[0-9]+');
 
+            Route::apiResources([
+                'themes' => 'ThemeController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+            Route::post('themes/{id}/upload', 'ThemeAttachmentController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('themes/{recordID}/doc/{mediaID}', 'ThemeAttachmentController@destroy')
+                ->where('recordID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+
+            Route::apiResources([
+                'keywords' => 'KeywordsController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
         });
     });
 
@@ -192,10 +210,43 @@ Route::group([
         ], function () {
 
             Route::apiResources([
-                'contacts' => 'CountryController',
+                'countries' => 'CountryController',
             ], [
                 'except' => ['create', 'edit',]
             ]);
+
+            Route::post('countries/{id}/upload', 'CountryAttachmentController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('countries/{recordID}/doc/{mediaID}', 'CountryAttachmentController@destroy')
+                ->where('recordID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+
+            Route::apiResources([
+                'cities' => 'CityController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+            Route::post('cities/{id}/upload', 'CityAttachmentController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('cities/{recordID}/doc/{mediaID}', 'CityAttachmentController@destroy')
+                ->where('recordID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+
+            Route::apiResources([
+                'municipalities' => 'MunicipalityController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+            Route::post('municipalities/{id}/upload', 'MunicipalityAttachmentController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('municipalities/{recordID}/doc/{mediaID}', 'MunicipalityAttachmentController@destroy')
+                ->where('recordID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
 
         });
     });
