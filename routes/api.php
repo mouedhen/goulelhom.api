@@ -7,12 +7,12 @@ Route::group([
     'namespace' => 'API'
 ], function () {
 
-    Route::get('test', function () {
-        return response()->json([
-            'hello',
-            config('api')
-        ]);
-    });
+    // Route::get('test', function () {
+    //     return response()->json([
+    //         'hello',
+    //         config('api')
+    //     ]);
+    // });
 
     /*
      * Authentication package routes
@@ -185,14 +185,14 @@ Route::group([
 
     Route::group([
         'namespace' => 'Locations',
-        'prefix' => 'contacts',
+        'prefix' => 'locations',
     ], function () {
         Route::group([
             'middleware' => 'auth:api',
         ], function () {
 
             Route::apiResources([
-                'contacts' => 'ContactController',
+                'contacts' => 'CountryController',
             ], [
                 'except' => ['create', 'edit',]
             ]);
