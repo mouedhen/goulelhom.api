@@ -1,53 +1,52 @@
 <?php
 
-namespace App\Http\Controllers\API\Contacts;
+namespace App\Http\Controllers\API\Locations;
 
-use App\Http\Requests\Contacts\ContactStoreRequest;
-use App\Http\Resources\Contacts\ContactResource;
-use App\Http\Resources\Contacts\ContactSecureResource;
-use App\Models\Contacts\Contact;
+use App\Http\Requests\Locations\CountryStoreRequest;
+use App\Http\Resources\Locations\CountryResource;
+use App\Models\Locations\Country;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 
-class ContactController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->query('secure')) {
-            return ContactSecureResource::collection(
-                Contact::paginate()
-            );
-        }
-        return ContactResource::collection(
-            Contact::paginate()
+        return CountryResource::collection(
+            Country::paginate()
         );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ContactStoreRequest $request
+     * @param CountryStoreRequest $request
      * @return JsonResponse
      */
-    public function store(ContactStoreRequest $request)
+    public function store(CountryStoreRequest $request)
     {
-        $record = new Contact();
-        $params = $request->only(['name', 'email', 'phone_number', 'address']);
-        $record->fill($params);
+        $record = new Country();
+        $transParams = $request->only(['name', 'description',]);
+        $params = $request->only(['population', 'longitude', 'latitude']);
+
+        $record->fill([
+            App::getLocale() => $transParams,
+            $params,
+        ]);
 
         $record->save();
 
         $data = [
             'message' => 'record created successfully',
             'code' => JsonResponse::HTTP_CREATED,
-            'data' => new ContactResource($record),
+            'data' => new CountryResource($record),
         ];
 
         return response()->json($data, JsonResponse::HTTP_CREATED);
@@ -57,20 +56,12 @@ class ContactController extends Controller
      * Display the specified resource.
      *
      * @param  int $id
-     * @param Request $request
-     * @return ContactResource|ContactSecureResource
+     * @return CountryResource
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
-        $record = Contact::findOrFail($id);
-
-        if ($request->query('secure')) {
-            return new ContactSecureResource(
-                $record
-            );
-        }
-
-        return new ContactResource(
+        $record = Country::findOrFail($id);
+        return new CountryResource(
             $record
         );
     }
@@ -84,16 +75,22 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $record = Contact::findOrFail($id);
-        $params = $request->only(['name', 'email', 'phone_number', 'address']);
-        $record->fill($params);
+        $record = Country::findOrFail($id);
+
+        $transParams = $request->only(['name', 'description',]);
+        $params = $request->only(['population', 'longitude', 'latitude']);
+
+        $record->fill([
+            App::getLocale() => $transParams,
+            $params,
+        ]);
 
         $record->save();
 
         $data = [
             'message' => 'record updated successfully',
             'code' => JsonResponse::HTTP_OK,
-            'data' => new ContactResource($record),
+            'data' => new CountryResource($record),
         ];
 
         return response()->json($data, JsonResponse::HTTP_OK);
@@ -107,7 +104,7 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $record = Contact::findOrFail($id);
+        $record = Country::findOrFail($id);
 
         $record->delete();
 

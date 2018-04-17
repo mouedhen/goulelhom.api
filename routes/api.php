@@ -183,6 +183,23 @@ Route::group([
         });
     });
 
+    Route::group([
+        'namespace' => 'Locations',
+        'prefix' => 'contacts',
+    ], function () {
+        Route::group([
+            'middleware' => 'auth:api',
+        ], function () {
+
+            Route::apiResources([
+                'contacts' => 'ContactController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+        });
+    });
+
 });
 
 
