@@ -2,6 +2,7 @@
 
 namespace App\Models\Locations;
 
+use App\Models\Complains\Complain;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -27,6 +28,7 @@ use Spatie\MediaLibrary\Models\Media;
  * @property integer $latitude
  * @property boolean $is_active
  * @property City $city
+ * @property Complain[] $complains
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -63,10 +65,10 @@ class Municipality extends Model implements HasMedia
         return $this->belongsTo(City::class, 'city_id');
     }
 
-    // public function claims()
-    // {
-    //     return $this->hasMany(Claim::class);
-    // }
+    public function complains()
+    {
+        return $this->hasMany(Complain::class);
+    }
 
     public function cover()
     {

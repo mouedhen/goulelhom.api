@@ -2,6 +2,7 @@
 
 namespace App\Models\Metrics;
 
+use App\Models\Complains\Complain;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -16,6 +17,7 @@ use Spatie\MediaLibrary\Models\Media;
  * @property string $name
  * @property string $description
  * @property string $color
+ * @property Complain[] $complains
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  */
@@ -31,6 +33,11 @@ class Theme extends Model implements HasMedia
     protected $fillable = ['name', 'description', 'color',];
     protected $translatedAttributes = ['name', 'description',];
     protected $translationModel = ThemeTranslation::class;
+
+    public function complains()
+    {
+        return $this->hasMany(Complain::class);
+    }
 
     public function cover()
     {

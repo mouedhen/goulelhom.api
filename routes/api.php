@@ -251,6 +251,23 @@ Route::group([
         });
     });
 
+    Route::group([
+        'namespace' => 'Complains',
+        'prefix' => 'complains',
+    ], function () {
+        Route::group([
+            // 'middleware' => 'auth:api',
+        ], function () {
+
+            Route::apiResources([
+                'complains' => 'ComplainController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+        });
+    });
+
 });
 
 
