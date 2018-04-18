@@ -181,6 +181,19 @@ Route::group([
                 ->where('eventID', '[0-9]+')
                 ->where('mediaID', '[0-9]+');
 
+            Route::apiResources([
+                'presses' => 'PressController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
+
+            Route::post('presses/{id}/upload', 'PressAttachmentController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('presses/{recordID}/doc/{mediaID}', 'PressAttachmentController@destroy')
+                ->where('recordID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+
         });
     });
 
@@ -256,7 +269,7 @@ Route::group([
         'prefix' => 'complains',
     ], function () {
         Route::group([
-            // 'middleware' => 'auth:api',
+            'middleware' => 'auth:api',
         ], function () {
 
             Route::apiResources([
@@ -266,6 +279,13 @@ Route::group([
             ]);
 
         });
+
+        Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
+            ->where('id', '[0-9]+');
+
+        Route::delete('complains/{recordID}/doc/{mediaID}', 'ComplainAttachmentController@destroy')
+            ->where('recordID', '[0-9]+')
+            ->where('mediaID', '[0-9]+');
     });
 
 });
