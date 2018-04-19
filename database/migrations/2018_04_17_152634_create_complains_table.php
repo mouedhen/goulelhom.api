@@ -17,7 +17,7 @@ class CreateComplainsTable extends Migration
             $table->increments('id');
 
             $table->string('subject')->nullable();
-            $table->string('description');
+            $table->text('description');
 
             $table->decimal('longitude', 10, 7)->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
@@ -28,20 +28,20 @@ class CreateComplainsTable extends Migration
             $table->boolean('has_approved_sworn_statement')->default(false);
             $table->boolean('has_approved_term_of_use')->default(false);
 
-            $table->integer('theme_id')->unsigned();
+            $table->integer('theme_id')->unsigned()->nullable();
             $table->foreign('theme_id')->references('id')->on('themes')->onDelete('cascade');
 
             $table->integer('contact_id')->unsigned();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
 
-            $table->integer('municipality_id')->unsigned();
+            $table->integer('municipality_id')->unsigned()->nullable();
             $table->foreign('municipality_id')->references('id')->on('municipalities')->onDelete('cascade');
 
             $table->timestamps();
         });
 
         Schema::table('complains', function (Blueprint $table) {
-            $table->integer('complain_id')->unsigned();
+            $table->integer('complain_id')->unsigned()->nullable();
             $table->foreign('complain_id')->references('id')->on('complains')->onDelete('cascade');
         });
     }

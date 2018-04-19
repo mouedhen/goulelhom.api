@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Posts;
+namespace App\Models\Contacts;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class PressTranslation extends Model
+class OrganizationTranslation extends Model
 {
     use Notifiable;
 
