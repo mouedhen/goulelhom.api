@@ -12,6 +12,19 @@ use App\Http\Controllers\Controller;
 class ContactController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function index(Request $request)
+    {
+        return ContactResource::collection(
+            Contact::paginate()
+        );
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param ContactStoreRequest $request

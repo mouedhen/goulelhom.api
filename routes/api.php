@@ -24,7 +24,7 @@ Route::group([
         Route::apiResources([
             'contacts' => 'ContactController',
         ], [
-            'except' => ['create', 'edit', 'index', 'destroy']
+            'except' => ['create', 'edit', 'destroy']
         ]);
     });
 
