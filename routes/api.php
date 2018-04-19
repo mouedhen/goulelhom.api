@@ -15,6 +15,20 @@ Route::group([
     // });
 
     /*
+     * public routes
+     */
+    Route::group([
+        'namespace' => 'Publics',
+        'prefix' => 'public',
+    ], function () {
+        Route::apiResources([
+            'contacts' => 'ContactController',
+        ], [
+            'except' => ['create', 'edit', 'index', 'destroy']
+        ]);
+    });
+
+    /*
      * Authentication package routes
      */
     Route::group([
