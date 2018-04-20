@@ -7,13 +7,6 @@ Route::group([
     'namespace' => 'API'
 ], function () {
 
-    // Route::get('test', function () {
-    //     return response()->json([
-    //         'hello',
-    //         config('api')
-    //     ]);
-    // });
-
     /*
      * public routes
      */
@@ -21,11 +14,31 @@ Route::group([
         'namespace' => 'Publics',
         'prefix' => 'public',
     ], function () {
+
         Route::apiResources([
             'contacts' => 'ContactController',
         ], [
             'except' => ['create', 'edit', 'destroy']
         ]);
+
+        Route::apiResources([
+            'complains' => 'ComplainController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update']
+        ]);
+
+        Route::apiResources([
+            'municipalities' => 'MunicipalityController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update']
+        ]);
+
+        Route::apiResources([
+            'themes' => 'ThemeController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update']
+        ]);
+
     });
 
     /*
