@@ -27,6 +27,12 @@ Route::group([
             'except' => ['create', 'edit', 'destroy', 'update']
         ]);
 
+        Route::apiResources([
+            'petitions' => 'PetitionController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update']
+        ]);
+
         Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
             ->where('id', '[0-9]+');
 
@@ -235,10 +241,10 @@ Route::group([
                 'except' => ['create', 'edit',]
             ]);
 
-            Route::post('presses/{id}/upload', 'PressAttachmentController@store')
+            Route::post('press/{id}/upload', 'PressAttachmentController@store')
                 ->where('id', '[0-9]+');
 
-            Route::delete('presses/{recordID}/doc/{mediaID}', 'PressAttachmentController@destroy')
+            Route::delete('press/{recordID}/doc/{mediaID}', 'PressAttachmentController@destroy')
                 ->where('recordID', '[0-9]+')
                 ->where('mediaID', '[0-9]+');
 
