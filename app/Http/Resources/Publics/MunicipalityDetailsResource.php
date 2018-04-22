@@ -3,10 +3,11 @@
 namespace App\Http\Resources\Publics;
 
 use App\Http\Resources\Helpers\MediaResource;
+use App\Http\Resources\Stacked\CityStackedResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 
-class MunicipalityResource extends JsonResource
+class MunicipalityDetailsResource extends JsonResource
 {
     public function toArray($request)
     {
@@ -22,6 +23,10 @@ class MunicipalityResource extends JsonResource
             'id' => $this->id,
             'name' => $name,
             'description' => $description,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'city' => new CityStackedResource($this->city),
+            'complains' => ComplainResource::collection($this->complains),
             'attachments' => MediaResource::collection($this->media),
             'lang' => App::getLocale(),
         ];
