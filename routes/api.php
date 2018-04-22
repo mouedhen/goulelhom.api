@@ -18,7 +18,7 @@ Route::group([
         Route::apiResources([
             'contacts' => 'ContactController',
         ], [
-            'except' => ['create', 'edit', 'destroy']
+            'except' => ['create', 'edit', 'destroy', 'index']
         ]);
 
         Route::apiResources([
@@ -40,6 +40,12 @@ Route::group([
             'themes' => 'ThemeController',
         ], [
             'except' => ['create', 'edit', 'destroy', 'update']
+        ]);
+
+        Route::apiResources([
+            'events' => 'EventController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update', 'store']
         ]);
 
     });

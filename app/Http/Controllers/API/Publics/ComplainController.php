@@ -12,7 +12,7 @@ class ComplainController extends \App\Http\Controllers\API\Complains\ComplainCon
     public function index()
     {
         return ComplainResource::collection(
-            Complain::all()
+            Complain::orderBy('created_at', 'desc')->get()
         );
     }
 
