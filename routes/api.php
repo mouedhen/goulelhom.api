@@ -54,6 +54,12 @@ Route::group([
             'except' => ['create', 'edit', 'destroy', 'update', 'store']
         ]);
 
+        Route::apiResources([
+            'press' => 'PressController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update', 'store']
+        ]);
+
     });
 
     /*
@@ -224,7 +230,7 @@ Route::group([
                 ->where('mediaID', '[0-9]+');
 
             Route::apiResources([
-                'presses' => 'PressController',
+                'press' => 'PressController',
             ], [
                 'except' => ['create', 'edit',]
             ]);
