@@ -48,6 +48,12 @@ Route::group([
             'except' => ['create', 'edit', 'destroy', 'update', 'store']
         ]);
 
+        Route::apiResources([
+            'reports' => 'ReportController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update', 'store']
+        ]);
+
     });
 
     /*
