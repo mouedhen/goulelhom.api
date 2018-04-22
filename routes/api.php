@@ -27,6 +27,9 @@ Route::group([
             'except' => ['create', 'edit', 'destroy', 'update']
         ]);
 
+        Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
+            ->where('id', '[0-9]+');
+
         Route::apiResources([
             'municipalities' => 'MunicipalityController',
         ], [
@@ -305,14 +308,14 @@ Route::group([
                 'except' => ['create', 'edit',]
             ]);
 
+            Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
+                ->where('id', '[0-9]+');
+
+            Route::delete('complains/{recordID}/doc/{mediaID}', 'ComplainAttachmentController@destroy')
+                ->where('recordID', '[0-9]+')
+                ->where('mediaID', '[0-9]+');
+
         });
-
-        Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
-            ->where('id', '[0-9]+');
-
-        Route::delete('complains/{recordID}/doc/{mediaID}', 'ComplainAttachmentController@destroy')
-            ->where('recordID', '[0-9]+')
-            ->where('mediaID', '[0-9]+');
     });
 
 });

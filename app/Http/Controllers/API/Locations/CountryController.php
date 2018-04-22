@@ -41,6 +41,8 @@ class CountryController extends Controller
             $params,
         ]);
 
+        $record->fill($params);
+
         $record->save();
 
         $data = [

@@ -38,8 +38,9 @@ class ThemeController extends Controller
 
         $record->fill([
             App::getLocale() => $transParams,
-            $params,
         ]);
+
+        $record->fill($params);
 
         $record->save();
 

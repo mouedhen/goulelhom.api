@@ -1,11 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: mouedhen
+ * Date: 20/04/18
+ * Time: 05:53
+ */
 
-namespace App\Http\Resources\Locations;
+namespace App\Http\Resources\Stacked;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+
+use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\App;
 
-class CityResource extends JsonResource
+class CityStackedResource extends Resource
 {
     public function toArray($request)
     {
@@ -23,14 +30,7 @@ class CityResource extends JsonResource
             'description' => $description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'country' => new CountryResource($this->country),
-            'municipalities' => MunicipalityResource::collection($this->municipalities),
             'lang' => App::getLocale(),
-            'translations' => [
-                'en' => $this->hasTranslation('en'),
-                'fr' => $this->hasTranslation('fr'),
-                'ar' => $this->hasTranslation('ar'),
-            ],
         ];
     }
 }

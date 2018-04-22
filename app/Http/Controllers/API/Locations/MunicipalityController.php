@@ -8,6 +8,7 @@ use App\Models\Locations\Municipality;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 
 class MunicipalityController extends Controller
 {
@@ -41,8 +42,9 @@ class MunicipalityController extends Controller
 
         $record->fill([
             App::getLocale() => $transParams,
-            $params,
         ]);
+
+        $record->fill($params);
 
         $record->save();
 

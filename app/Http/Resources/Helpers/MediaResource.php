@@ -16,7 +16,8 @@ class MediaResource extends Resource
     public function toArray($request)
     {
         return [
-            'media' => env('APP_URL') . $this->getUrl(),
+            'url' => env('APP_URL') . $this->getUrl(),
+            'uri' => $this->getUrl(),
         ];
     }
 }

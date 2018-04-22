@@ -33,13 +33,16 @@ class CityController extends Controller
     public function store(CityStoreRequest $request)
     {
         $record = new City();
-        $transParams = $request->only(['name', 'description',]);
+        $transParams = $request->only(['name', 'description', 'population', 'longitude', 'latitude', 'country_id']);
         $params = $request->only(['population', 'longitude', 'latitude', 'country_id']);
 
         $record->fill([
             App::getLocale() => $transParams,
-            $params,
         ]);
+
+        $record->fill($params);
+
+        // $record->country_id = $params
 
         $record->save();
 

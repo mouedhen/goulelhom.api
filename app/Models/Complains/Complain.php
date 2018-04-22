@@ -92,5 +92,15 @@ class Complain extends Model implements HasMedia
                     ->width(600)
                     ->height(600);
             });
+
+        $this
+            ->addMediaCollection('videos')
+            ->registerMediaConversions(function (Media $media) {
+                $this
+                    ->addMediaConversion('thumbs')
+                    ->width(368)
+                    ->height(232)
+                    ->extractVideoFrameAtSecond(1);
+            });
     }
 }

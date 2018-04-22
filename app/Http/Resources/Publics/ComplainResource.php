@@ -2,7 +2,10 @@
 
 namespace App\Http\Resources\Publics;
 
+use App\Http\Resources\Helpers\MediaResource;
 use App\Http\Resources\Metrics\ThemeResource;
+use App\Http\Resources\Stacked\MunicipalityStackedResource;
+use App\Http\Resources\Stacked\ThemeStackedResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ComplainResource extends JsonResource
@@ -21,9 +24,9 @@ class ComplainResource extends JsonResource
             'description' => $this->description,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
-            'attachment' => $this->media,
-            'theme' => new ThemeResource($this->theme),
-            'municipality' => new ThemeResource($this->municipality),
+            'attachments' => MediaResource::collection($this->media),
+            'theme' => new ThemeStackedResource($this->theme),
+            'municipality' => new MunicipalityStackedResource($this->municipality),
         ];
     }
 }

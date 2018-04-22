@@ -13,7 +13,7 @@ class CountryStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

@@ -50,9 +50,7 @@ class ComplainController extends Controller
             'municipality_id',
         ]);
 
-        $record->fill([
-            $params,
-        ]);
+        $record->fill($params);
 
         $record->save();
 

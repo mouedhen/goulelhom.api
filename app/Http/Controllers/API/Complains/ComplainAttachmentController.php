@@ -15,7 +15,7 @@ class ComplainAttachmentController extends Controller
         $collection = 'attachments';
         $record = Complain::findOrFail($id);
         $record
-            ->addMedia($request->file)
+            ->addMedia($request->file('file'))
             ->toMediaCollection($collection);
         $data = [
             'message' => 'file uploaded successfully',
