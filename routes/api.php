@@ -27,13 +27,16 @@ Route::group([
             'except' => ['create', 'edit', 'destroy', 'update']
         ]);
 
+        Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
+            ->where('id', '[0-9]+');
+
         Route::apiResources([
             'petitions' => 'PetitionController',
         ], [
             'except' => ['create', 'edit', 'destroy', 'update']
         ]);
 
-        Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
+        Route::post('petitions/{id}/upload', 'PetitionAttachmentController@store')
             ->where('id', '[0-9]+');
 
         Route::apiResources([

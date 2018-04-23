@@ -5,6 +5,7 @@ namespace App\Models\Petitions;
 use App\Models\Contacts\Contact;
 use App\Models\Contacts\Organization;
 use App\Models\Metrics\Theme;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -85,6 +86,16 @@ class Petition extends Model implements HasMedia
     public function signatures()
     {
         return $this->hasMany(Signature::class);
+    }
+
+    public function wasArchived()
+    {
+        return (new Carbon($this->end_date))->lt(Carbon::now());
+    }
+
+    public function haveReachedObjective()
+    {
+        return $this->signatures->count() >= $this->requested_signatures_number;
     }
 
     public function comments()
