@@ -32,11 +32,8 @@ class ContactController extends Controller
      */
     public function store(ContactStoreRequest $request)
     {
-        $record = new Contact();
-        $params = $request->only(['name', 'email', 'phone_number', 'address']);
-        $record->fill($params);
-
-        $record->save();
+        $params = $request->only(['name', 'phone_number', 'address']);
+        $record = Contact::firstOrCreate(['email' => $request->get('email')], $params);
 
         $data = [
             'message' => 'record created successfully',
