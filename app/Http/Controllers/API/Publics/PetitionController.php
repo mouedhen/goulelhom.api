@@ -27,9 +27,7 @@ class PetitionController extends Controller
 
     public function store(Request $request)
     {
-        // return response()->json(App::getLocale());
-        // $organization = Organization::firstOrCreate(['name' => $request->get('organisation')]);
-        $checkOrganization = OrganizationTranslation::where('name', '=',$request->get('organization'))
+        $checkOrganization = OrganizationTranslation::where('name', '=', $request->get('organization'))
             ->first();
         $organization = new Organization();
 
@@ -41,13 +39,12 @@ class PetitionController extends Controller
         } else {
             $organization = Organization::findOrFail($checkOrganization->organization_id);
         }
-        // return response()->json($organization);
 
         $record = new Petition();
 
         $params = $request->only(['end_date', 'name', 'description', 'theme_id', 'contact_id', 'requested_signatures_number']);
         $params['organization_id'] = $organization->id;
-        $params['uuid'] = (string) Uuid::generate();
+        $params['uuid'] = (string)Uuid::generate();
         $params['start_date'] = new Carbon();
         $params['end_date'] = new Carbon($params['end_date']);
 
@@ -62,5 +59,13 @@ class PetitionController extends Controller
         ];
 
         return response()->json($data, JsonResponse::HTTP_CREATED);
+    }
+
+    public function show($id)
+    {
+        $record = Petition::findOrFail($id);
+        return new PetitionResource(
+            $record
+        );
     }
 }

@@ -6,7 +6,6 @@ use App\Http\Resources\Helpers\MediaResource;
 use App\Http\Resources\Stacked\ContactStackedResource;
 use App\Http\Resources\Stacked\SignatureStackedResource;
 use App\Http\Resources\Stacked\ThemeStackedResource;
-use App\Models\Contacts\Contact;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PetitionResource extends JsonResource
@@ -30,6 +29,7 @@ class PetitionResource extends JsonResource
             'wasArchived' => $this->wasArchived(),
             'haveReachedObjective' => $this->haveReachedObjective(),
             'launched_by' => new ContactStackedResource($this->contact),
+            'target' => $this->organization->name,
             'signatures' => $this->signatures->count(),
             'signatories' => SignatureStackedResource::collection($this->signatures),
             'theme' => new ThemeStackedResource($this->theme),

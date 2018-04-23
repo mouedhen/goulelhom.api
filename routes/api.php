@@ -40,6 +40,12 @@ Route::group([
             ->where('id', '[0-9]+');
 
         Route::apiResources([
+            'signatures' => 'SignatureController',
+        ], [
+            'except' => ['create', 'edit', 'destroy', 'update', 'index', 'show']
+        ]);
+
+        Route::apiResources([
             'municipalities' => 'MunicipalityController',
         ], [
             'except' => ['create', 'edit', 'destroy', 'update']
