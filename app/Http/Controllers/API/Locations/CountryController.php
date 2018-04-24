@@ -38,7 +38,6 @@ class CountryController extends Controller
 
         $record->fill([
             App::getLocale() => $transParams,
-            $params,
         ]);
 
         $record->fill($params);
