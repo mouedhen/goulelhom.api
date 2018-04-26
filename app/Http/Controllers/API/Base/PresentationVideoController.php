@@ -31,15 +31,15 @@ class PresentationVideoController extends Controller
      */
     public function store(PresentationVideoStoreRequest $request)
     {
-        if ($request->get('is_selected') === true) {
-            PresentationVideo::where('is_selected', '=', true)->update(['is_selected' => false]);
-        }
+        // if ($request->get('is_selected') === true) {
+        //     PresentationVideo::where('is_selected', '=', true)->update(['is_selected' => false]);
+        // }
 
         $params = $request->only(['name', 'url', 'is_selected']);
 
-        if (PresentationVideo::all()->count() < 1) {
-            $params['is_selected'] = true;
-        }
+        // if (PresentationVideo::all()->count() < 1) {
+        //     $params['is_selected'] = true;
+        // }
 
         return new PresentationVideoResource(
             PresentationVideo::create($params)
@@ -68,9 +68,9 @@ class PresentationVideoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->get('is_selected') === true) {
-            PresentationVideo::where('is_selected', '=', true)->update(['is_selected' => false]);
-        }
+        // if ($request->get('is_selected') === true) {
+        //     PresentationVideo::where('is_selected', '=', true)->update(['is_selected' => false]);
+        // }
 
         $params = $request->only(['name', 'url', 'is_selected']);
         $record = PresentationVideo::findOrFail($id);

@@ -10,6 +10,6 @@ class PresentationVideoController extends Controller
 {
     public function __invoke()
     {
-        return new PresentationVideoResource(PresentationVideo::where('is_selected', '=', true)->first());
+        return PresentationVideoResource::collection(PresentationVideo::where('is_selected', '=', true)->get());
     }
 }
