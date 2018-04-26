@@ -16,6 +16,7 @@ Route::group([
     ], function () {
 
         Route::get('presentation-video', 'PresentationVideoController');
+        Route::get('slides', 'SliderController');
 
         Route::apiResources([
             'contacts' => 'ContactController',
