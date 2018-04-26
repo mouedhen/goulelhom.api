@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers\API\Publics;
+
+use App\Http\Resources\Base\PresentationVideoResource;
+use App\Models\Base\PresentationVideo;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class PresentationVideoController extends Controller
+{
+    public function __invoke()
+    {
+        return new PresentationVideoResource(PresentationVideo::where('is_selected', '=', true)->first());
+        return response()->json();
+    }
+}

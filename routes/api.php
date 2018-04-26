@@ -15,6 +15,8 @@ Route::group([
         'prefix' => 'public',
     ], function () {
 
+        Route::get('presentation-video', 'PresentationVideoController');
+
         Route::apiResources([
             'contacts' => 'ContactController',
         ], [
