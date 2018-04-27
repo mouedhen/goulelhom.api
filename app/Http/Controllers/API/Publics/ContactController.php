@@ -8,6 +8,7 @@ use App\Models\Contacts\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class ContactController extends Controller
 {
@@ -33,7 +34,14 @@ class ContactController extends Controller
     public function store(ContactStoreRequest $request)
     {
         $params = $request->only(['name', 'phone_number', 'address']);
-        $record = Contact::firstOrCreate(['email' => $request->get('email')], $params);
+
+        if ($request->get('email')) {
+            $record = Contact::firstOrCreate(['email' => $request->get('email')], $params);
+        } else if ($request->get('phone_number')) {
+            $record = Contact::firstOrCreate(['email' => $request->get('phone_number')], $params);
+        } else {
+            $record = Contact::create($params);
+        }
 
         $data = [
             'message' => 'record created successfully',
@@ -63,8 +71,8 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

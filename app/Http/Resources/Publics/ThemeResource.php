@@ -22,6 +22,7 @@ class ThemeResource extends JsonResource
             'name' => $name,
             'description' => $description,
             'color' => $this->color,
+            'claims_count' => $this->complains->count(),
             'lang' => App::getLocale(),
         ];
     }

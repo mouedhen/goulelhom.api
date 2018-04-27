@@ -25,6 +25,13 @@ class MunicipalityDetailsResource extends JsonResource
             'description' => $description,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'population' => $this->population,
+            'houses' => $this->houses,
+            'municipal_council_number' => $this->municipal_council_number,
+            'regional_council_number' => $this->regional_council_number,
+
+
+
             'city' => new CityStackedResource($this->city),
             'complains' => ComplainResource::collection($this->complains),
             'attachments' => MediaResource::collection($this->media),

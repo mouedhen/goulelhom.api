@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Complains;
 use App\Http\Requests\Complains\ComplainStoreRequest;
 use App\Http\Resources\Complains\ComplainResource;
 use App\Models\Complains\Complain;
+use App\Models\Metrics\Theme;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,6 +50,10 @@ class ComplainController extends Controller
             'contact_id',
             'municipality_id',
         ]);
+
+        if(!$request->get('subject')) {
+            $params['subject'] = (Theme::find($params['theme_id']))->id;
+        }
 
         $record->fill($params);
 
