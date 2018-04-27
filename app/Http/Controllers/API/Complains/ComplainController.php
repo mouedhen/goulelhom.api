@@ -52,7 +52,7 @@ class ComplainController extends Controller
         ]);
 
         if(!$request->get('subject')) {
-            $params['subject'] = (Theme::find($params['theme_id']))->id;
+            $params['subject'] = (Theme::find($params['theme_id']))->name;
         }
 
         $record->fill($params);
