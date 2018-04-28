@@ -54,6 +54,11 @@ Route::group([
             'except' => ['create', 'edit', 'destroy', 'update']
         ]);
 
+        Route::get(
+            'municipalities/{municipalityID}/stats',
+            'MunicipalityStatsController'
+        )->where('municipalityID', '[0-9]+');
+
         Route::apiResources([
             'themes' => 'ThemeController',
         ], [
