@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Metrics;
 
 
+use App\Http\Resources\Helpers\MediaResource;
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\App;
 
@@ -26,6 +27,7 @@ class ReportResource extends Resource
             'period_start_at' => (string) $this->period_start_at,
             'period_end_at' => (string) $this->period_end_at,
             'document' => ($this->document() ? env('APP_URL') . $this->document() : ''),
+            'attachments' => MediaResource::collection($this->getMedia('documents')),
             'thumb' => ($this->thumb() ? env('APP_URL') . $this->thumb() : ''),
             'lang' => App::getLocale(),
             'translations' => [

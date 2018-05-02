@@ -14,14 +14,15 @@ class ThemeAttachmentController extends Controller
     {
         $collection = 'attachments';
         if ($request->query('collection')) {
-            switch ($request->query) {
-                case 'cover':
-                    $collection = 'cover';
+            switch ($request->query('collection')) {
+                case 'covers':
+                    $collection = 'covers';
                     break;
                 case 'miniatures':
-                    $collection = 'cover';
+                    $collection = 'miniatures';
                     break;
             }
+
         }
         $record = Theme::findOrFail($id);
         $record
@@ -43,14 +44,10 @@ class ThemeAttachmentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($mediaId, $recordID, Request $request)
+    public function destroy($recordID, $mediaId, Request $request)
     {
         $record = Theme::findOrFail($recordID);
-        $record
-            ->getMedia()
-            ->keyBy('id')
-            ->get($mediaId)
-            ->delete();
+        $record->deleteMedia($mediaId);
 
         $data = [
             'message' => 'file deleted successfully',

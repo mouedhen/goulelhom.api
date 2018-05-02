@@ -46,14 +46,10 @@ class ReportDocController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($mediaId, $reportID, Request $request)
+    public function destroy($reportID, $mediaId, Request $request)
     {
         $record = Report::findOrFail($reportID);
-        $record
-            ->getMedia()
-            ->keyBy('id')
-            ->get($mediaId)
-            ->delete();
+        $record->deleteMedia($mediaId);
 
         $data = [
             'message' => 'file deleted successfully',
