@@ -44,16 +44,13 @@ class UserAvatarController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $mediaId
+     * @param  int $mediaId
      * @return \Illuminate\Http\Response
+     * @throws \Spatie\MediaLibrary\Exceptions\MediaCannotBeDeleted
      */
     public function destroy($mediaId)
     {
-        $this->user
-            ->getMedia()
-            ->keyBy('id')
-            ->get($mediaId)
-            ->delete();
+        $this->user->deleteMedia($mediaId);
 
         $data = [
             'message' => 'file deleted successfully',

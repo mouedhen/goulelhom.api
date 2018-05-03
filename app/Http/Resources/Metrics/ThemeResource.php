@@ -30,7 +30,7 @@ class ThemeResource extends JsonResource
             'name' => $name,
             'description' => $description,
             'color' => $this->color,
-            'cover' => $this->cover(),
+            'cover' => ($this->cover() ? env('APP_URL') . $this->cover() : ''),
             'miniature' => ($this->miniature() ? env('APP_URL') . $this->miniature() : ''),
             'attachments' => MediaResource::collection($this->getMedia('attachments')),
 

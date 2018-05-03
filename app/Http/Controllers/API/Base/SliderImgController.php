@@ -42,11 +42,7 @@ class SliderImgController extends Controller
     public function destroy($mediaId, $slideID, Request $request)
     {
         $record = Slider::findOrFail($slideID);
-        $record
-            ->getMedia()
-            ->keyBy('id')
-            ->get($mediaId)
-            ->delete();
+        $record->deleteMedia($mediaId);
 
         $data = [
             'message' => 'file deleted successfully',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Locations;
 
+use App\Http\Resources\Helpers\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 
@@ -24,7 +25,12 @@ class CityResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'country' => new CountryResource($this->country),
-            'municipalities' => MunicipalityResource::collection($this->municipalities),
+            // 'municipalities' => MunicipalityResource::collection($this->municipalities),
+
+            'cover' => ($this->cover() ? env('APP_URL') . $this->cover() : ''),
+            'miniature' => ($this->miniature() ? env('APP_URL') . $this->miniature() : ''),
+            'attachments' => MediaResource::collection($this->getMedia('attachments')),
+
             'lang' => App::getLocale(),
             'translations' => [
                 'en' => $this->hasTranslation('en'),

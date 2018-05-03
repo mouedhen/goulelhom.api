@@ -20,7 +20,7 @@ class CityController extends Controller
     public function index()
     {
         return CityResource::collection(
-            City::paginate()
+            City::all()
         );
     }
 

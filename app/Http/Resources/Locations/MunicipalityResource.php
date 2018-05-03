@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Locations;
 
+use App\Http\Resources\Helpers\MediaResource;
 use App\Http\Resources\Publics\ComplainResource;
 use App\Http\Resources\Stacked\CityStackedResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,10 +24,25 @@ class MunicipalityResource extends JsonResource
             'id' => $this->id,
             'name' => $name,
             'description' => $description,
+            'population' => $this->population,
+            'houses' => $this->houses,
+            'regional_council_number' => $this->regional_council_number,
+            'municipal_council_number' => $this->municipal_council_number,
+            'website' => $this->website,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'fax' => $this->fax,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'is_active' => $this->is_active === 1,
+
             'city' => new CityStackedResource($this->city),
-            'complains' => ComplainResource::collection($this->complains),
+            // 'complains' => ComplainResource::collection($this->complains),
+
+            'cover' => ($this->cover() ? env('APP_URL') . $this->cover() : ''),
+            'miniature' => ($this->miniature() ? env('APP_URL') . $this->miniature() : ''),
+            'attachments' => MediaResource::collection($this->getMedia('attachments')),
+
             'lang' => App::getLocale(),
             'translations' => [
                 'en' => $this->hasTranslation('en'),

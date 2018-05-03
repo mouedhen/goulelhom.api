@@ -37,12 +37,8 @@ class UserAvatarController extends Controller
      */
     public function destroy($mediaId, Request $request)
     {
-        $user = $request->user('api');
-        $user
-            ->getMedia()
-            ->keyBy('id')
-            ->get($mediaId)
-            ->delete();
+        $record = $request->user('api');
+        $record->deleteMedia($mediaId);
 
         $data = [
             'message' => 'file deleted successfully',
