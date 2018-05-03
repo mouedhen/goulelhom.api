@@ -67,8 +67,8 @@ composer install
 npm install
 cp .env.example .env # you should adapt the .env file to your system config
 php artisan key:generate # generate laravel key
-php artisan passport:install # generate passport package keys
 php artisan migrate # migrate the database
+php artisan passport:install # generate passport package keys
 php artisan db:seed # create default application records
 php artisan storage:link # make the storage public to access uploaded files
 ```
