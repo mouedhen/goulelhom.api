@@ -62,6 +62,16 @@ class Complain extends Model implements HasMedia
         return $this->belongsTo(Theme::class, 'theme_id');
     }
 
+    public function complain()
+    {
+        return $this->belongsTo(Complain::class, 'complain_id');
+    }
+
+    public function complains()
+    {
+        return $this->hasMany(Complain::class, 'complain_id');
+    }
+
     public function contact()
     {
         return $this->belongsTo(Contact::class, 'contact_id');

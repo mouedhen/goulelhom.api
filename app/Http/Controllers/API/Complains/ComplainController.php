@@ -23,7 +23,7 @@ class ComplainController extends Controller
     public function index()
     {
         return ComplainResource::collection(
-            Complain::paginate()
+            Complain::orderBy('created_at', 'desc')->paginate()
         );
     }
 
