@@ -20,7 +20,7 @@ class ThemeController extends Controller
     public function index()
     {
         return ThemeResource::collection(
-            Theme::paginate()
+            Theme::all()
         );
     }
 

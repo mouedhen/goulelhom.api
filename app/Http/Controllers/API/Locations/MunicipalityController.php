@@ -20,7 +20,7 @@ class MunicipalityController extends Controller
     public function index()
     {
         return MunicipalityResource::collection(
-            Municipality::paginate()
+            Municipality::all()
         );
     }
 

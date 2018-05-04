@@ -6,6 +6,7 @@ use App\Http\Requests\Complains\ComplainStoreRequest;
 use App\Http\Resources\Complains\ComplainResource;
 use App\Models\Complains\Complain;
 use App\Models\Metrics\Theme;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,12 +19,47 @@ class ComplainController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (
+            $request->query('start_date') &&
+            $request->query('end_date')
+        ) {
+
+            $start_date = new Carbon($request->query('start_date'));
+            $end_date = new Carbon($request->query('end_date'));
+
+            if ($start_date->equalTo($end_date)) {
+                $records = Complain::whereDate('complains.created_at', '=', $start_date->toDateString())
+                    ->orderBy('created_at', 'desc');
+
+            } else {
+                $records = Complain::whereBetween('complains.created_at',
+                    [
+                        (new Carbon($start_date))->toDateString(),
+                        (new Carbon($end_date))->toDateString(),
+                    ])->orderBy('created_at', 'desc');
+            }
+        } else {
+            $records = Complain::orderBy('created_at', 'desc');
+        }
+
+        if ($request->query('municipalities')) {
+            $municipalities = explode(',', $request->query('municipalities'));
+            $records = $records->whereIn('complains.municipality_id', $municipalities)->orderBy('created_at', 'desc');
+        }
+
+        if ($request->query('themes')) {
+            $themes = explode(',', $request->query('themes'));
+            $records = $records->whereIn('complains.theme_id', $themes)->orderBy('created_at', 'desc');
+        }
+
         return ComplainResource::collection(
-            Complain::orderBy('created_at', 'desc')->paginate()
+            $records->paginate()
+            //Complain::orderBy('created_at', 'desc')->paginate()
         );
     }
 
