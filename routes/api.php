@@ -359,6 +359,21 @@ Route::group([
         });
     });
 
+    Route::group([
+        'namespace' => 'Stats',
+        'prefix' => 'stats',
+    ], function () {
+
+        Route::group([
+            'middleware' => 'auth:api',
+        ], function () {
+            Route::get('themes', 'ThemesStatsController')->name('stats.themes');
+            Route::get('municipalities', 'MunicipalitiesStatsController')->name('stats.municipalities');
+            Route::get('dates', 'DatesStatsController')->name('stats.dates');
+        });
+
+    });
+
 });
 
 

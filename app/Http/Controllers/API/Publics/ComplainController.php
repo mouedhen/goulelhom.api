@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class ComplainController extends \App\Http\Controllers\API\Complains\ComplainController
 {
-    public function index()
+    public function index(Request $request)
     {
         return ComplainResource::collection(
             Complain::orderBy('created_at', 'desc')->get()
