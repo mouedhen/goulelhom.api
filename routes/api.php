@@ -336,6 +336,21 @@ Route::group([
     });
 
     Route::group([
+        // 'middleware' => 'auth:api',
+    ], function () {
+        Route::group([
+            'prefix' => 'export',
+        ], function () {
+            Route::group([
+                'namespace' => 'Complains',
+            ], function () {
+                Route::get('complains', 'ComplainController@export')
+                    ->name('complains.export');
+            });
+        });
+    });
+
+    Route::group([
         'namespace' => 'Complains',
         'prefix' => 'complains',
     ], function () {
@@ -350,11 +365,13 @@ Route::group([
             ]);
 
             Route::post('complains/{id}/upload', 'ComplainAttachmentController@store')
-                ->where('id', '[0-9]+');
+                ->where('id', '[0-9]+')
+                ->name('complains.media.store');
 
             Route::delete('complains/{recordID}/doc/{mediaID}', 'ComplainAttachmentController@destroy')
                 ->where('recordID', '[0-9]+')
-                ->where('mediaID', '[0-9]+');
+                ->where('mediaID', '[0-9]+')
+                ->name('complains.media.destroy');
 
         });
     });
