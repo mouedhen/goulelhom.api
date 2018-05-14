@@ -18,8 +18,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ComplainController extends Controller
 {
-    // TODO create route to export complains
-
     protected function filter(Request $request)
     {
         if (
@@ -72,8 +70,7 @@ class ComplainController extends Controller
     {
         $records = $this->filter($request);
         return ComplainResource::collection(
-            $records->paginate()
-        //Complain::orderBy('created_at', 'desc')->paginate()
+            $records->get()
         );
     }
 
