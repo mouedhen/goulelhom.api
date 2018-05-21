@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 
+/**
+ * Class Organization
+ * @package App\Models\Contacts
+ * @property int $id
+ */
 class Organization extends Model
 {
     use LogsActivity;

@@ -336,7 +336,7 @@ Route::group([
     });
 
     Route::group([
-        // 'middleware' => 'auth:api',
+        'middleware' => 'auth:api',
     ], function () {
         Route::group([
             'prefix' => 'export',
@@ -372,6 +372,23 @@ Route::group([
                 ->where('recordID', '[0-9]+')
                 ->where('mediaID', '[0-9]+')
                 ->name('complains.media.destroy');
+
+        });
+    });
+
+    Route::group([
+        'namespace' => 'Petitions',
+        'prefix' => 'petitions',
+    ], function () {
+        Route::group([
+            'middleware' => 'auth:api',
+        ], function () {
+
+            Route::apiResources([
+                'petitions' => 'PetitionController',
+            ], [
+                'except' => ['create', 'edit',]
+            ]);
 
         });
     });

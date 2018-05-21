@@ -12,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $id
  * @property string $name
  * @property string $phone_number
- * @property string $mail
+ * @property string $email
  * @property string $address
  * @property Complain $complains
  * @property \Carbon\Carbon $created_at
